@@ -1,6 +1,6 @@
-This is the source code of [LC3CTF](lc3ctf.co) website. And it can be easily modified to a universal CTF platform.
+This is the source code of [LC3CTF](https://lc3ctf.co) website. And it can be easily modified to a universal CTF platform.
 # LC3CTF
-LC3CTF is originally the lab 4 of [ICS 2018](acsa.ustc.edu.cn/ics) (a CS course in USTC). And it is based on LC-3 CPU.
+LC3CTF is originally the lab 4 of [ICS 2018](https://acsa.ustc.edu.cn/ics) (a CS course in USTC). And it is based on LC-3 CPU.
 
 # Usage
 - Modify ```config.json``` and ```tasks.json``` in the example directory and then move them outside.
