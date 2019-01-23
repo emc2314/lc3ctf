@@ -22,8 +22,8 @@ from flask import request
 from flask import session
 from flask import url_for
 
-from lc3_achi import chkachi
-from lc3_achi import lc3_achivements
+from lc3achi.lc3achi import chkachi
+from lc3achi.lc3achi import lc3_achivements
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
