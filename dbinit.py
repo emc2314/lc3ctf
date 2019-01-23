@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""task_import.py -- imports tasks from 'tasks.json' into the database"""
+"""dbinit.py -- imports tasks and init database"""
 
 import dataset
 import json
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     tasks_table = db.create_table('tasks', primary_id=False)
     cat_task_table = db.create_table('cat_task', primary_id=False)
 
-    # Setup the flags table at first execution
+    # Setup tables at first execution
     if 'flags' not in db.tables:
         db.query('''create table flags (
             task_id INTEGER,
@@ -26,6 +26,15 @@ if __name__ == '__main__':
             score INTEGER,
             timestamp BIGINT,
             PRIMARY KEY (task_id, user_id))''')
+    user_found = db['users'].find_one(username='root')
+    if not user_found:
+        root_user = dict(hidden=1, username='root')
+        db['users'].insert(root_user)
+    if 'achivements' not in db.tables:
+        db.query('''create table achivements (
+            achi_id INTEGER,
+            user_id INTEGER,
+            PRIMARY KEY (achi_id, user_id))''')
 
     # Parse the json file and add rows to the table
     old_cat_count = len(list(cat_table))
