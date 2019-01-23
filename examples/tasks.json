@@ -1,0 +1,44 @@
+{"categories": [
+    {"id": 0, "name": "Misc", "short_name": "misc", "tasks": [
+        {
+            "id": 0, 
+            "row": 0,
+            "name": "Test1", 
+            "score": "50",
+            "flag": "flag{hello_world}",
+            "desc": "The flag is hello_world, with the flag tag and brackets",
+            "file": "misc50.zip"
+        },
+        {
+            "id": 1, 
+            "row": 1,
+            "name": "Test2", 
+            "score": "100",
+            "flag": "flag{test_test}",
+            "desc": "The flag is test_test, with the flag tag and brackets",
+            "file": "misc100.zip"
+        }
+    ]},
+    {"id": 1, "name": "Reversing", "short_name": "re", "tasks": [
+        {
+            "id": 3, 
+            "row": 0,
+            "name": "GDB", 
+            "score": "100",
+            "flag": "flag{reversing_is_fun}",
+            "desc": "The flag is reversing_is_fun, with the flag tag and brackets",
+            "file": "rev100.zip"
+        }
+    ]},
+    {"id": 2, "name": "Exploit", "short_name": "pwn", "tasks": [
+        {
+            "id": 4, 
+            "row": 0,
+            "name": "Stack", 
+            "score": "200",
+            "flag": "flag{pwning_is_even_more_fun}",
+            "desc": "The flag is pwning_is_even_more_fun, with the flag tag and brackets",
+            "file": "pwn200.zip"
+        }
+    ]}
+]}
