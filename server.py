@@ -132,6 +132,9 @@ def login():
 def login_cas(ticket):
     """Check user"""
 
+    if config['debug']:
+        register_login(ticket)
+        return redirect(url_for('tasks'))
     if len(ticket) != 35:
         return redirect(url_for('login'))
 
