@@ -22,6 +22,9 @@ from flask import request
 from flask import session
 from flask import url_for
 
+from lc3_achi import chkachi
+from lc3_achi import lc3_achivements
+
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 langfile = 'lang.json'
@@ -253,7 +256,7 @@ def submit(task_id, flag):
     task_done = task['id'] in flags
 
     db = dataset.connect(dbfile)
-    result = {'success': False}
+    result = {'success': False, 'new_achivement': False}
     if not task_done and task['flag'] == b64decode(flag).decode('utf-8'):
 
         timestamp = int(time.time() * 1000)
@@ -265,6 +268,9 @@ def submit(task_id, flag):
 
         result['success'] = True
 
+    if chkachi(dbfile, 'submit', correct=result['success'], real_flag=task['flag'],
+               flag=b64decode(flag).decode('utf-8')):
+        result['new_achivement'] = True
     db.executable.close()
     return jsonify(result)
 
@@ -301,9 +307,28 @@ def achivements():
     active = default_active.copy()
     active['achivements'] = 'active'
 
+    db = dataset.connect(dbfile)
+    achis = db.query('''select a.achi_id from achivements a
+                where a.user_id = :user_id''', user_id=session['user_id'])
+    achi = [a['achi_id'] for a in list(achis)]
+    db.executable.close()
+
+    ACh = [a for a in lc3_achivements if a['id'] in achi and not a['hidden']]
+    ach = [a for a in lc3_achivements if a['id'] not in achi and not a['hidden']]
+    ACH = [a for a in lc3_achivements if a['id'] in achi and a['hidden']]
+    l___ = len(lc3_achivements)
+    lAC_ = len([a for a in lc3_achivements if a['id'] in achi])
+    lACh = len(ACh)
+    lach = len(ach)
+    lACH = len(ACH)
+    l__H = len([a for a in lc3_achivements if a['hidden']])
+
     # Render template
     render = render_template('frame.html', lang=lang, page='achivements.html',
-                             login=login, user=user, active=active)
+                             login=login, user=user, active=active,
+                             ACh=ACh, ach=ach, ACH=ACH,
+                             lACh=lACh, lach=lach, lACH=lACH, l__H=l__H,
+                             width='%.2f'%(100*lAC_/l___))
     return make_response(render)
 
 
@@ -355,6 +380,7 @@ default_active = {'about': '', 'tasks': '',
 
 if __name__ == '__main__':
     """Initializes the database and sets up the language"""
+
     # Start web server
     app.run(host=config['host'], port=config['port'],
             debug=config['debug'], threaded=True)
