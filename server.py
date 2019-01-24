@@ -87,16 +87,16 @@ def get_flags():
     return flag
 
 
-def register_login(username):
+def register_login(sno):
     """Register and login user"""
 
     db = dataset.connect(dbfile)
-    user_found = db['users'].find_one(username=username)
+    user_found = db['users'].find_one(sno=sno)
     if not user_found:
-        new_user = dict(hidden=0, username=username)
+        new_user = dict(hidden=0, sno=sno, username=sno)
         db['users'].insert(new_user)
 
-    user = db['users'].find_one(username=username)
+    user = db['users'].find_one(sno=sno)
     session['user_id'] = user['id']
     db.executable.close()
 

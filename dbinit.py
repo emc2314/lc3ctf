@@ -5,6 +5,7 @@
 import dataset
 import json
 import sys
+import time
 
 if __name__ == '__main__':
 
@@ -28,7 +29,7 @@ if __name__ == '__main__':
             PRIMARY KEY (task_id, user_id))''')
     user_found = db['users'].find_one(username='root')
     if not user_found:
-        root_user = dict(hidden=1, username='root')
+        root_user = dict(hidden=1, username=time.strftime("%Y/%m/%d-%H:%M:%S", time.gmtime()), sno='root')
         db['users'].insert(root_user)
     if 'achivements' not in db.tables:
         db.query('''create table achivements (
